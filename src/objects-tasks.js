@@ -161,12 +161,12 @@ function sellTickets(queue) {
   let sellerMoney = queue[0];
 
   for (let i = 0; i < queue.length - 1; i += 1) {
-    if (sellerMoney < queue[i + 1]) return false;
     if (queue[i] === ticketCost) {
       sellerMoney += queue[i];
     } else {
       sellerMoney += queue[i] - ticketCost;
     }
+    if (sellerMoney < queue[i + 1]) return false;
   }
   return true;
 }
