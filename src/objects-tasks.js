@@ -156,8 +156,19 @@ function makeWord(obj) {
  *    sellTickets([25, 25, 50]) => true
  *    sellTickets([25, 100]) => false (The seller does not have enough money to give change.)
  */
-function sellTickets(/* queue */) {
-  throw new Error('Not implemented');
+function sellTickets(queue) {
+  const ticketCost = 25;
+  let sellerMoney = queue[0];
+
+  for (let i = 0; i < queue.length - 1; i += 1) {
+    if (sellerMoney < queue[i + 1]) return false;
+    if (queue[i] === ticketCost) {
+      sellerMoney += queue[i];
+    } else {
+      sellerMoney += queue[i] - ticketCost;
+    }
+  }
+  return true;
 }
 
 /**
@@ -286,8 +297,15 @@ function sortCitiesArray(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  return array.reduce((acc, elem) => {
+    const key = keySelector(elem);
+    const value = valueSelector(elem);
+    const values = acc.get(key) || [];
+    values.push(value);
+    acc.set(key, values);
+    return acc;
+  }, new Map());
 }
 
 /**
